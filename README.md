@@ -50,7 +50,7 @@ This project is currently in the development stage. Contributions and feedback a
 
 ## Author
 
-- [Your Name](https://github.com/darrielmarkerizal)
+- [Darriel Markerizal](https://github.com/darrielmarkerizal)
 
 ## License
 

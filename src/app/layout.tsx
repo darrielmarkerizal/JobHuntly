@@ -21,10 +21,10 @@ export default function RootLayout({
       <body className={`${epilogue.className} relative overflow-x-hidden`}>
         <Navbar />
         <main>
-          {children}
           <div className="absolute w-2/3 h-screen top-0 right-0 -z-10">
             <Image src="/images/pattern.png" alt="pattern" fill />
           </div>
+          {children}
         </main>
       </body>
     </html>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Epilogue, Inter } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
+import Navbar from "@/components/layouts/Navbar";
 
 const epilogue = Epilogue({ subsets: ["latin"] });
 
@@ -18,9 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${epilogue.className} relative overflow-x-hidden`}>
-        <div>Navbar </div>
+        <Navbar />
         <main>
-          <div className="w-full h-screen absolute top-0 -z-10" />
+          {children}
           <div className="absolute w-2/3 h-screen top-0 right-0 -z-10">
             <Image src="/images/pattern.png" alt="pattern" fill />
           </div>

@@ -10,33 +10,6 @@ interface FormFilterDynamicProps {
     filterForms: filterFormType[];
 }
 
-const items = [
-    {
-        id: "recents",
-        label: "Recents",
-    },
-    {
-        id: "home",
-        label: "Home",
-    },
-    {
-        id: "applications",
-        label: "Applications",
-    },
-    {
-        id: "desktop",
-        label: "Desktop",
-    },
-    {
-        id: "downloads",
-        label: "Downloads",
-    },
-    {
-        id: "documents",
-        label: "Documents",
-    },
-] as const;
-
 const FormFilterDynamic: FC<FormFilterDynamicProps> = ({
     filterForms,
     formFilter,
@@ -45,24 +18,15 @@ const FormFilterDynamic: FC<FormFilterDynamicProps> = ({
     return (
         <Form {...formFilter}>
             <form onSubmit={formFilter.handleSubmit(onSubmitFilter)}>
-                {/* {filterForms &&
-                    filterForms.map((item: filterFormType, i: number) => (
-                        <CheckboxForms
-                            key={i}
-                            formFilter={formFilter}
-                            items={item.items}
-                            label={item.label}
-                            name={item.name}
-                        />
-                    ))} */}
-
-                <CheckboxForms
-                    formFilter={formFilter}
-                    items={items}
-                    label="Categories"
-                    name="categories"
-                />
-
+                {filterForms.map((item: filterFormType, i: number) => (
+                    <CheckboxForms
+                        key={i}
+                        formFilter={formFilter}
+                        items={item.items}
+                        label={item.label}
+                        name={item.name}
+                    />
+                ))}
                 <Button className="mt-5 w-full">Apply Filter</Button>
                 <Button variant="outline" className="mt-3 w-full">
                     Reset Filter

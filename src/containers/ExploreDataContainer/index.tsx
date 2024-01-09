@@ -1,5 +1,6 @@
 import FormFilterDynamic from "@/components/organisms/FormFilterDynamic";
 import FormSearchDynamic from "@/components/organisms/FormSearchDynamic";
+import { filterFormType } from "@/types";
 import { promises } from "dns";
 import Image from "next/image";
 import React, { FC } from "react";
@@ -7,7 +8,7 @@ import React, { FC } from "react";
 interface ExploreDataContainerProps {
     formFilter?: any;
     onSubmitFilter: (val: any) => Promise<void>;
-    filterForms?: any;
+    filterForms: filterFormType[];
 }
 
 const ExploreDataContainer: FC<ExploreDataContainerProps> = ({

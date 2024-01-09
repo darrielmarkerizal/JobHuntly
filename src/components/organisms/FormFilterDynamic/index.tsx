@@ -1,41 +1,75 @@
-import { z } from "zod";
+import { Form } from "@/components/ui/form";
+import { FC } from "react";
+import CheckboxForms from "./CheckboxForms";
+import { filterFormType } from "@/types";
+import { Button } from "@/components/ui/button";
 
-export const formFilterSchema = z.object({
-  categories: z.array(z.string()).refine((val) => val.some((val) => val)),
-});
+interface FormFilterDynamicProps {
+    formFilter: any;
+    onSubmitFilter: (val: any) => Promise<void>;
+    filterForms: filterFormType[];
+}
 
-export const formFilterCompanySchema = z.object({
-  industry: z.array(z.string()),
-});
+const items = [
+    {
+        id: "recents",
+        label: "Recents",
+    },
+    {
+        id: "home",
+        label: "Home",
+    },
+    {
+        id: "applications",
+        label: "Applications",
+    },
+    {
+        id: "desktop",
+        label: "Desktop",
+    },
+    {
+        id: "downloads",
+        label: "Downloads",
+    },
+    {
+        id: "documents",
+        label: "Documents",
+    },
+] as const;
 
-export const formApplySchema = z.object({
-  resume: z.any().refine((file: any) => file?.name, "Please upload Resume"),
-  fullname: z
-    .string({ required_error: "Fullname is Required" })
-    .min(5, { message: "Full name have min 5 characters" }),
-  email: z
-    .string({ required_error: "Email is required" })
-    .email({ message: "Email not valid" }),
-  phone: z.string().min(6, { message: "Phone have min 6 characters" }),
-  previousJobTitle: z.string(),
-  linkedIn: z.string(),
-  portfolio: z.string(),
-  coverLetter: z.string(),
-});
+const FormFilterDynamic: FC<FormFilterDynamicProps> = ({
+    filterForms,
+    formFilter,
+    onSubmitFilter,
+}) => {
+    return (
+        <Form {...formFilter}>
+            <form onSubmit={formFilter.handleSubmit(onSubmitFilter)}>
+                {/* {filterForms &&
+                    filterForms.map((item: filterFormType, i: number) => (
+                        <CheckboxForms
+                            key={i}
+                            formFilter={formFilter}
+                            items={item.items}
+                            label={item.label}
+                            name={item.name}
+                        />
+                    ))} */}
 
-export const formSignInSchema = z.object({
-  email: z
-    .string({ required_error: "Email is requied" })
-    .email({ message: "Email is not valid" }),
-  password: z.string({ required_error: "Password is required" }),
-});
+                <CheckboxForms
+                    formFilter={formFilter}
+                    items={items}
+                    label="Categories"
+                    name="categories"
+                />
 
-export const formSignUpSchema = z.object({
-  email: z
-    .string({ required_error: "Email is requied" })
-    .email({ message: "Email is not valid" }),
-  password: z.string({ required_error: "Password is required" }),
-  name: z
-    .string({ required_error: "Name is required" })
-    .min(3, { message: "Name should have minimal 3 characters" }),
-});
+                <Button className="mt-5 w-full">Apply Filter</Button>
+                <Button variant="outline" className="mt-3 w-full">
+                    Reset Filter
+                </Button>
+            </form>
+        </Form>
+    );
+};
+
+export default FormFilterDynamic;

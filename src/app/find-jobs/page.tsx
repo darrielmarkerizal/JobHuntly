@@ -1,10 +1,23 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formFilterSchema } from "@/lib/form-schema";
 import ExploreDataContainer from "@/containers/ExploreDataContainer";
-import React, { FC } from "react";
 
-interface FindJobsPageProps {}
+export default function FindJobsPage() {
+    const formFilter = useForm<z.infer<typeof formFilterSchema>>({
+        resolver: zodResolver(formFilterSchema),
+    });
 
-const FindJobsPage: FC<FindJobsPageProps> = () => {
-  return <ExploreDataContainer />;
-};
+    const onSubmitFormFilter = async (val: z.infer<typeof formFilterSchema>) =>
+        console.log(val);
 
-export default FindJobsPage;
+    return (
+        <ExploreDataContainer
+            formFilter={formFilter}
+            onSubmitFilter={onSubmitFormFilter}
+        />
+    );
+}

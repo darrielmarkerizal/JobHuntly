@@ -1,5 +1,6 @@
 import FormFilterDynamic from "@/components/organisms/FormFilterDynamic";
 import FormSearchDynamic from "@/components/organisms/FormSearchDynamic";
+import JobCard from "@/components/organisms/JobCard";
 import { filterFormType } from "@/types";
 import { promises } from "dns";
 import Image from "next/image";
@@ -62,6 +63,20 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
                             Showing 73 Result
                         </div>
                         <div>Job Card</div>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-7">
+                        <JobCard
+                            applicants={5}
+                            categories={["Marketing", "Design"]}
+                            desc="lorem"
+                            image="/image/company2.png"
+                            jobType="Full Time"
+                            location="Jakarta"
+                            name="Frontend Developer"
+                            needs={10}
+                            type="Agency"
+                        />
                     </div>
                 </div>
             </div>

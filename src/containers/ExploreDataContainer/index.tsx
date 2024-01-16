@@ -7,15 +7,25 @@ import Image from "next/image";
 import React, { FC } from "react";
 
 interface ExploreDataContainerProps {
-    formFilter?: any;
+    formFilter: any;
     onSubmitFilter: (val: any) => Promise<void>;
     filterForms: filterFormType[];
+    loading: boolean;
+    title: string;
+    subtitle: string;
+    data: any[];
+    type: "job" | "company";
 }
 
 const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
     formFilter,
     onSubmitFilter,
     filterForms,
+    loading,
+    subtitle,
+    title,
+    data,
+    type,
 }) => {
     return (
         <>
@@ -27,7 +37,7 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
                         </span>
                         <div className="relative">
                             <span className="text-5xl font-semibold text-primary">
-                                dream job
+                                {title}
                             </span>
                             <div className="absolute top-10 w-[220px] h-10">
                                 <Image
@@ -39,10 +49,7 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
                             </div>
                         </div>
                     </div>
-                    <div className="text-center text-gray-500">
-                        Find your next career at companies like HubSpot, Nike,
-                        and Dropbox
-                    </div>
+                    <div className="text-center text-gray-500">{subtitle}</div>
                 </div>
                 <div>
                     <FormSearchDynamic />
@@ -66,17 +73,25 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
                     </div>
 
                     <div className="grid grid-cols-1 gap-7">
-                        <JobCard
-                            applicants={5}
-                            categories={["Marketing", "Design"]}
-                            desc="lorem"
-                            image="/image/company2.png"
-                            jobType="Full Time"
-                            location="Jakarta"
-                            name="Frontend Developer"
-                            needs={10}
-                            type="Agency"
-                        />
+                        {loading ? (
+                            <div>Loading...</div>
+                        ) : (
+                            <>
+                                {type === "job" ? (
+                                    <div className="grid grid-cols-1 gap-7">
+                                        {data?.map((item: any, i: number) => (
+                                            <JobCard key={i} {...item} />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-3 gap-5">
+                                        {data?.map((item: any, i: number) => (
+                                            <div key={i}>Company Cardß</div>
+                                        ))}
+                                    </div>
+                                )}
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
